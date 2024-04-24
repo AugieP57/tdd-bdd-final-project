@@ -271,7 +271,8 @@ class TestProductRoutes(TestCase):
         # retrieve the JSON data from the response
         # assert that the length of the data list (i.e., the number of products returned in the response) is equal to found_count
         # use a for loop to check each product in the data list and verify that all returned products belong to the queried category
-        def test_query_by_name(self):
+    
+    def test_query_by_name(self):
         """It should Query Products by name"""
         products = self._create_products(5)
         test_name = products[0].name
