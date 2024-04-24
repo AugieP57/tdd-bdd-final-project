@@ -54,6 +54,7 @@ def test_query_by_name(self):
 ######################################################################
 # List By Category
 ######################################################################
+@app.route("/query_by_category", methods=["GET"])
 def test_query_by_category(self):
         """It should Query Products by category"""
         products = self._create_products(10)
