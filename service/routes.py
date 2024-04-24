@@ -127,6 +127,7 @@ def list_products():
     results = [product.serialize() for product in products]
     app.logger.info("[%s] Products returned", len(results))
     return results, status.HTTP_200_OK
+    
 ######################################################################
 # List By Name
 ######################################################################
@@ -149,6 +150,24 @@ def test_query_by_name(self):
 ######################################################################
 # List By Category
 ######################################################################
+@app.route("/query_by_category", methods=["GET"])
+def test_query_by_category(self):
+        """It should Query Products by category"""
+        products = self._create_products(10)
+        category = products[0].category
+        found = [product for product in products if product.category == category]
+        found_count = len(found)
+        logging.debug("Found Products [%d] %s", found_count, found)
+
+        # test for available
+        response = self.client.get(BASE_URL, query_string=f"category={category.name}")
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        data = response.get_json()
+        self.assertEqual(len(data), found_count)
+        # check the data just to be sure
+        for product in data:
+            self.assertEqual(product["category"], category.name)
+
 ######################################################################
 # List By Availability
 ######################################################################
