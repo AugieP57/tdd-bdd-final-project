@@ -225,6 +225,18 @@ class TestProductRoutes(TestCase):
         # get the data from resp.get_json() as updated_product
         # assert that the updated_product["description"] is whatever you changed it to
 
+    def test_list_all_products(self):
+        """It should List all Products in the database"""
+        products = Product.all()
+        self.assertEqual(products, [])
+        # Create 5 Products
+        for _ in range(5):
+            product = ProductFactory()
+            product.create()
+        # See if we get back 5 products
+        products = Product.all()
+        self.assertEqual(len(products), 5)
+
     def test_delete_product(self):
         """It should Delete a Product"""
         products = self._create_products(5)
